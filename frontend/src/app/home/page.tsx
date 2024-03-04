@@ -1,7 +1,7 @@
 import { Center, Spacer, Stack } from '@yamada-ui/react'
 import { PostService } from '@/app/home/_services/post.service'
 import { Suspense } from 'react'
-import PostCards from '@/features/PostCards/PostCards'
+import PostCards from '@/features/PostCards/components/PostCards'
 import { auth } from '@clerk/nextjs'
 
 export default async function Home() {

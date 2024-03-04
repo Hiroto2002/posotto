@@ -1,6 +1,6 @@
-import { PostBodyProps } from './components/PostBody/PostBody'
+import { PostBodyProps } from './PostBody/components/PostBody'
 import { NeumoLinkBox } from '@/components/shared/elements/NeumoLinkBox'
-import PostBody from './components/PostBody/PostBody'
+import PostBody from './PostBody/components/PostBody'
 
 type PostCardProps = PostBodyProps & {}
 

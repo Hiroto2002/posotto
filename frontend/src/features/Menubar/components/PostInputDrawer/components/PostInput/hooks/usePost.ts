@@ -9,21 +9,18 @@ export const usePost = (
   token: Token,
 ) => {
   const [hasDraft, setHasDraft] = useState(false)
-  const [draftText, setDraftText] = useState<string>()
+  const [draftText, setDraftText] = useState<string>('a')
   const { getToken } = useAuth()
   const queryClient = useQueryClient()
   const Post = PostService()
 
   const uploadAudioText = async (transcript: string) => {
     if (transcript) {
+      setHasDraft(true)
       try {
         const res = await Post.convertText(transcript, token)
         if (res) {
-          console.log(res)
-          setHasDraft(true)
           setDraftText(res.text)
-          console.log('Draft text set')
-          console.log(draftText)
         }
       } catch (err) {
         console.error(err)

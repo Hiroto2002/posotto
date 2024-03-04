@@ -1,6 +1,8 @@
-import "regenerator-runtime";
+import 'regenerator-runtime'
 import { useRef, useState } from 'react'
-import SpeechRecognition,{ useSpeechRecognition } from 'react-speech-recognition';
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from 'react-speech-recognition'
 
 export const useRecord = () => {
   const [isRecording, setIsRecording] = useState(false)
@@ -8,9 +10,8 @@ export const useRecord = () => {
   const [progress, setProgress] = useState(0) // progress bar
   const mediaRecorderRef = useRef<MediaRecorder | null>(null) // reference to the media recorder
   const recordingTimeoutRef = useRef<NodeJS.Timeout | null>(null) //q reference to the recording timeout
-  const { transcript, resetTranscript} = useSpeechRecognition();
-
-
+  const { transcript, resetTranscript } = useSpeechRecognition()
+  
   const handleStartRecording = async () => {
     console.log('Recording started')
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -27,7 +28,7 @@ export const useRecord = () => {
 
         mediaRecorderRef.current.onstop = () => {
           const audioBlob = new Blob(audioChunks, { type: 'audio/wav' })
-          resetTranscript();
+          resetTranscript()
           setAudioBlob(audioBlob)
         }
 
@@ -55,17 +56,18 @@ export const useRecord = () => {
     }
   }
 
-  const handleStopRecording = (uploadAudioText:(transcript:string)=>void) => {
+  const handleStopRecording = (
+    uploadAudioText: (transcript: string) => void,
+  ) => {
     if (mediaRecorderRef.current && isRecording) {
-        mediaRecorderRef.current.stop()
-        uploadAudioText(transcript)
-        setIsRecording(false)
-        clearInterval(recordingTimeoutRef.current ?? undefined)
-        recordingTimeoutRef.current = null
-        setProgress(0)
-        console.log('Recording stopped')
-      }
-    
+      mediaRecorderRef.current.stop()
+      uploadAudioText(transcript)
+      setIsRecording(false)
+      clearInterval(recordingTimeoutRef.current ?? undefined)
+      recordingTimeoutRef.current = null
+      setProgress(0)
+      console.log('Recording stopped')
+    }
   }
 
   return {

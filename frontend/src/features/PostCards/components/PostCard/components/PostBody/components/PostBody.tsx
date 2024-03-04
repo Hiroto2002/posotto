@@ -9,8 +9,8 @@ import {
 } from '@fortawesome/free-regular-svg-icons'
 import { Post } from '@/types/data/post'
 import { useCustomRouter } from '@/hooks/useCustomRouter'
-import { useLike } from './hooks/useLike'
-import { NeumoIconButton } from '../../../../../../components/shared/elements/NeumoIconButton'
+import { useLike } from '../hooks/useLike'
+import { NeumoIconButton } from '../../../../../../../components/shared/elements/NeumoIconButton'
 import { postBodyInfo } from '@/features/PostCards/components/PostCard/components/PostBody/utils'
 
 export type PostBodyProps = {
