@@ -1,5 +1,5 @@
 # ビルドステージ
-FROM node:18.16.0 as builder
+FROM node:18.17.0 as builder
 
 # 作業ディレクトリを設定
 WORKDIR /api
@@ -17,11 +17,10 @@ COPY . .
 RUN npx prisma generate && npm run build
 
 # 本番ステージ
-FROM node:18.16.0
+FROM node:18.17.0
 
 # Python、pip、FLAC、ffmpegのインストール
-RUN apt-get update && apt-get install -y python3 python3-pip python3-venv flac ffmpeg
-
+RUN apt-get update && apt-get install -y python3 python3-pip python3-venv
 # 仮想環境の準備
 RUN python3 -m venv /opt/venv
 
@@ -32,11 +31,10 @@ WORKDIR /api
 COPY --from=builder /api/dist ./dist
 COPY --from=builder /api/node_modules ./node_modules
 COPY --from=builder /api/prisma ./prisma
-COPY --from=builder /api/src/lib/speech_recognition/BERT.py ./src/lib/speech_recognition/
 
 # 仮想環境を有効化し、必要なパッケージをインストール
 COPY requirements.txt /opt/venv/
-RUN . /opt/venv/bin/activate && pip install -r /opt/venv/requirements.txt && pip install sentencepiece
+RUN . /opt/venv/bin/activate && pip install -r /opt/venv/requirements.txt
 
 ENV PYTHON_PATH=/opt/venv/bin/python3
 ENV SCRIPT_PATH=/api/src/lib/speech_recognition/BERT.py

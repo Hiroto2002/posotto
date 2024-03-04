@@ -10,7 +10,7 @@ export class AudioRecognitionService {
     try {
   
       const pythonEnvPath = process.env.PYTHON_PATH || "python3";
-      const scriptPath = process.env.SCRIPT_PATH2;
+      const scriptPath = process.env.SCRIPT_PATH;
       const command = `${pythonEnvPath} ${scriptPath} ${text}`;
       console.log(command)
   
