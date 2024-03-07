@@ -9,22 +9,19 @@ import {
 } from '@fortawesome/free-regular-svg-icons'
 import { Post } from '@/types/data/post'
 import { useCustomRouter } from '@/hooks/useCustomRouter'
-import { useLike } from '../hooks/useLike'
 import { NeumoIconButton } from '../../../../../../../components/shared/elements/NeumoIconButton'
 import { postBodyInfo } from '@/features/PostCards/components/PostCard/components/PostBody/utils'
+import { usePost } from '../hooks/usePost'
 
-export type PostBodyProps = {
-  post: Post
-  hasDeleteButton?: boolean
-  hasLikeButton?: boolean
-  hasCommentButton?: boolean
+type Props = Post & {
+  isCurrentUser: boolean
 }
 
-export default function PostBody(props: PostBodyProps) {
-  const { post, hasDeleteButton, hasLikeButton, hasCommentButton } = props
-  const { isLiked, handleClickLike } = useLike()
+export default function PostBody(props: Props) {
+  const { isCurrentUser, ...post } = props
+  const { isLiked, handleClickLike, handleClickDelete } = usePost()
   const { handlePushRouter } = useCustomRouter()
-  const handleDeletePost = (postId: number) => {} // TODO: implement
+  const handleDeletePost = (postId: number) => {} // TODO: implementz
   // todo:これは取得時にやるべきビジネスロジックかも
   const { contentOpacity, timeSinceText } = postBodyInfo(post)
   return (
@@ -32,7 +29,7 @@ export default function PostBody(props: PostBodyProps) {
       <HStack gap="0" alignItems="start" w="full">
         <VStack gap="0.8em" ps="md">
           <HStack gap="1em" justify="space-between">
-            <Avatar size="sm" opacity={contentOpacity} />
+            <Avatar size="sm" opacity={contentOpacity} src={post.user.img_url}/>
             <VStack gap="0">
               <Text fontWeight="bold" opacity={contentOpacity}>
                 {post.user.nickname}
@@ -42,7 +39,7 @@ export default function PostBody(props: PostBodyProps) {
               </Text>
             </VStack>
             <Spacer />
-            {hasDeleteButton && (
+            {isCurrentUser && (
               <NeumoIconButton
                 iconElem={
                   <FontAwesomeIcon
@@ -51,7 +48,7 @@ export default function PostBody(props: PostBodyProps) {
                     opacity={contentOpacity}
                   />
                 }
-                handleClick={() => handleDeletePost(post.id)}
+                handleClick={() => handleClickDelete(post.id)}
               />
             )}
           </HStack>
@@ -65,32 +62,32 @@ export default function PostBody(props: PostBodyProps) {
             </Text>
           </Box>
           <HStack>
-            {hasLikeButton && (
-              <NeumoIconButton
-                isPressed={isLiked}
-                handleClick={() => handleClickLike(post.id)}
-                iconElem={
-                  <FontAwesomeIcon
-                    icon={isLiked ? faSolidHeart : faRegularHeart}
-                    fontSize="sm"
-                    opacity={contentOpacity}
-                  />
-                }
-              />
-            )}
-            {hasCommentButton && (
-              <NeumoIconButton
-                handleClick={() =>
-                  handlePushRouter(`/${post.user.publicId}/${post.id}`)
-                }
-                iconElem={
-                  <FontAwesomeIcon
-                    icon={faComment}
-                    fontSize="sm"
-                    opacity={contentOpacity}
-                  />
-                }
-              />
+            {isCurrentUser || (
+              <>
+                <NeumoIconButton
+                  isPressed={isLiked}
+                  handleClick={() => handleClickLike(post.id)}
+                  iconElem={
+                    <FontAwesomeIcon
+                      icon={isLiked ? faSolidHeart : faRegularHeart}
+                      fontSize="sm"
+                      opacity={contentOpacity}
+                    />
+                  }
+                />
+                <NeumoIconButton
+                  handleClick={() =>
+                    handlePushRouter(`/${post.user.publicId}/${post.id}`)
+                  }
+                  iconElem={
+                    <FontAwesomeIcon
+                      icon={faComment}
+                      fontSize="sm"
+                      opacity={contentOpacity}
+                    />
+                  }
+                />
+              </>
             )}
           </HStack>
         </VStack>

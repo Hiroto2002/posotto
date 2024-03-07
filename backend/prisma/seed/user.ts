@@ -11,14 +11,14 @@ export const user = async () => {
       // user1
       birthday: new Date(),
       created_at: new Date(),
-      id: 'user_2bZsg5vIrB06IKeLE7eYyecxop0',
+      id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq0',
       publicId: 'posotto_official',
-      nickname: 'posotto',
+      nickname: 'みゅーら',
       // アクセスするたびに画像が変わるURL
-      img_url: 'https://picsum.photos/200/300',
+      img_url: 'https://picsum.photos/200/100',
       isPublic: true,
       link: 'https://www.google.com/',
-      comment:"sample comment",
+      comment:"謎解きめっちゃ楽しかった！",
       deleted_at: null
     },
     {
@@ -27,12 +27,12 @@ export const user = async () => {
       created_at: new Date(),
       id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq1',
       publicId: 'posotto_official_1',
-      nickname: 'posotto_1',
+      nickname: 'てらもん',
       // アクセスするたびに画像が変わるURL
-      img_url: 'https://picsum.photos/200/300',
+      img_url: 'https://picsum.photos/200/200',
       isPublic: true,
       link: 'https://www.google.com/',
-      comment:"sample comment",
+      comment:"え　4/2から授業だ...無理すぎる...",
       deleted_at: null
     },
     {
@@ -41,26 +41,27 @@ export const user = async () => {
       created_at: new Date(),
       id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq2',
       publicId: 'posotto_official_2',
-      nickname: 'posotto_2',
+      nickname: 'わとくん',
       // アクセスするたびに画像が変わるURL
       img_url: 'https://picsum.photos/200/300',
       isPublic: true,
       link: 'https://www.google.com/',
-      comment:"sample comment",
+      comment:"お疲れ様でした！",
       deleted_at: null
     },
     {
       // user4
       birthday: new Date(),
       created_at: new Date(),
-      id: 'user_2bnlcwboHNuvxzRIApEUaHO4X96',
+      // id: 'user_2bnlcwboHNuvxzRIApEUaHO4X96',
+      id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq3',
       publicId: 'posotto_official_3',
-      nickname: 'posotto_3',
+      nickname: 'ちゃお',
       // アクセスするたびに画像が変わるURL
-      img_url: 'https://picsum.photos/200/300',
+      img_url: 'https://picsum.photos/200/400',
       isPublic: true,
       link: 'https://www.google.com/',
-      comment:"sample comment",
+      comment:"両かかと骨折しました...",
       deleted_at: null
     }
 

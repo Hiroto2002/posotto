@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { NeumoIconButton } from '@/components/shared/elements/NeumoIconButton'
 import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons'
 import { ICON_BOX_SHADOW_PRESSED } from '@/variants'
-import { Progress, Center, Flex, Text, Box } from '@yamada-ui/react'
+import { Progress,Flex, Text} from '@yamada-ui/react'
 import { SignedIn, UserButton } from '@clerk/nextjs'
 import { NeumoBox } from '@/components/shared/elements/NeumoBox'
 

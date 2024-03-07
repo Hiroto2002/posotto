@@ -2,11 +2,11 @@ import {
   Controller,
   Get,
   Param,
-  NotFoundException,
   UseGuards,
   Post,
   Request,
-  Body
+  Body,
+  Put,
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -16,16 +16,43 @@ import { CreateUserDto } from '../dto/create-user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('/:publicId')
+  @Get('/publicId/:publicId')
   async getProfileByPublicId(@Param('publicId') publicId: string) {
     const profile = this.userService.findUserbyPublicId(publicId);
-    return await profile;
+    return profile;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/')
+  async getUser(@Request() req) {
+    const user = await this.userService.findUser(req.user.userId);
+    return user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/id/only')
+  async getIsUser(@Request() req) {
+    const isUser = await this.userService.findIsUser(req.user.userId);
+    return isUser;
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async createUser(@Body() Body:CreateUserDto,@Request() req) {
-    const user = await this.userService.createUser({...Body, id:req.user_id});
+  async createUser(@Body() Body: CreateUserDto, @Request() req) {
+    const user = this.userService.createUser({
+      ...Body,
+      id: req.user.userId,
+    });
+    return user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put()
+  async updateUser(@Body() Body: CreateUserDto, @Request() req) {
+    const user = this.userService.updateUser({
+      ...Body,
+      id: req.user.userId,
+    });
     return user;
   }
 }

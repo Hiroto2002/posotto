@@ -23,24 +23,23 @@ export class PostsController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async fetchAllPosts(@Request() req) {
-    if (!req.user_id) {
-      console.log('no user_id');
-      return await this.appService.findAllPosts({ user_id: null });
+    if (!req.user) {
+      return  this.appService.findAllPosts({ user_id: null });
     } else {
-      return await this.appService.findAllPosts({ user_id: req.user_id });
+      return  this.appService.findAllPosts({ user_id: req.user.userId });
     }
   }
 
   @Get('/:PostId')
   async getPostDetail(@Param('PostId') postId: number) {
-    return await this.appService.getPostDetail({ postId: postId });
+    return  this.appService.getPostDetail({ postId:  Number(postId) });
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
   async createPost(@Body() createPostDto: CreatePostDto, @Request() req) {
     console.log(req.user);
-    return await this.appService.createPost({
+    return  this.appService.createPost({
       ...createPostDto,
       user_id: req.user.userId,
     });
@@ -48,11 +47,9 @@ export class PostsController {
 
   // @UseGuards(JwtAuthGuard)
   @Post('/voice')
-  async convertText(
-    @Body() ConvertTextDto:ConvertTextDto,
-  ) {
-    console.log("-----------voice-----------");
-    return await this.appService.convertText(ConvertTextDto);
+  async convertText(@Body() ConvertTextDto: ConvertTextDto) {
+    console.log('-----------voice-----------');
+    return  this.appService.convertText(ConvertTextDto);
   }
 
   // @Post('/voice')

@@ -9,7 +9,7 @@ export const usePost = (
   token: Token,
 ) => {
   const [hasDraft, setHasDraft] = useState(false)
-  const [draftText, setDraftText] = useState<string>('a')
+  const [draftText, setDraftText] = useState<string>('変換中...')
   const { getToken } = useAuth()
   const queryClient = useQueryClient()
   const Post = PostService()

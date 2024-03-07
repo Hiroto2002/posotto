@@ -10,7 +10,6 @@ export class JwtAuthGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
-    // console.log('--------token---------');
     const token = request.headers.authorization?.split(' ')[1];
     // console.log(token);
     const publicKey = fs.readFileSync('./publicKey.pem', 'utf8');

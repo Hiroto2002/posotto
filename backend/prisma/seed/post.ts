@@ -5,34 +5,34 @@ const prisma = new PrismaClient();
 export const post = async () => {
   const posts = [
     {
-      content: 'sample1-user1',
+      content: '謎解きめっちゃ楽しかった！',
       created_at: new Date(),
-      user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxop0',
+      user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq0',
     },
     {
-      content: 'sample2-user1',
-      created_at: new Date().setHours(new Date().getHours() - 1),
-      user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxop0',
-    },
-    {
-      content: 'sample1-user2',
-      created_at: new Date().setHours(new Date().getHours() - 2),
+      content: 'え　4/2から授業だ...無理すぎる...',
+      created_at: new Date().setHours(new Date().getHours() - 5),
       user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq1',
     },
     {
-      content: 'sample2-user2',
-      created_at: new Date().setHours(new Date().getHours() - 3),
+      content: 'お疲れ様でした！',
+      created_at: new Date().setHours(new Date().getHours() - 10),
+      user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq2',
+    },
+    {
+      content: '両かかと骨折しました...',
+      created_at: new Date().setHours(new Date().getHours() - 15),
+      user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq3',
+    },
+    {
+      content: 'おやすみ',
+      created_at: new Date().setHours(new Date().getHours() - 20),
+      user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq0',
+    },
+    {
+      content: 'あああああああああ！',
+      created_at: new Date().setHours(new Date().getHours() - 23),
       user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq1',
-    },
-    {
-      content: 'sample1-user3',
-      created_at: new Date().setHours(new Date().getHours() - 12),
-      user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq2',
-    },
-    {
-      content: 'sample2-user3-delete',
-      created_at: new Date().setHours(new Date().getHours() - 24),
-      user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq2',
     },
   ];
   await prisma.post.createMany({

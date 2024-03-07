@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
 import {
   RequestCreateUser,
@@ -45,6 +46,22 @@ export class UserRepository {
     return profile;
   }
 
+  async findIsUserById(id: string): Promise<boolean> {
+    const user = await this.prisma.user.findUnique({
+      select: { id: true },
+      where: { id },
+    });
+
+    return user ? true : false;
+  }
+
+  async findUserById(id: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+    return user;
+  }
+
   // todo: error handling
   async createUser(user: RequestCreateUser): Promise<ResponseCreateUser> {
     try {
@@ -53,6 +70,19 @@ export class UserRepository {
         data: user,
       });
       return createdUser;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+
+  async updateUser(user: RequestCreateUser): Promise<ResponseCreateUser> {
+    try {
+      const updatedUser = await this.prisma.user.update({
+        where: { id: user.id },
+        data: user,
+      });
+      return updatedUser;
     } catch (e) {
       console.log(e);
       return null;

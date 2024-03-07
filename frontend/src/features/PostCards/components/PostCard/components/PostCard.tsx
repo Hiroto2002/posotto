@@ -1,15 +1,17 @@
-import { PostBodyProps } from './PostBody/components/PostBody'
 import { NeumoLinkBox } from '@/components/shared/elements/NeumoLinkBox'
 import PostBody from './PostBody/components/PostBody'
+import { Post } from '@/types/data/post'
 
-type PostCardProps = PostBodyProps & {}
+type Props = Post & {
+  isCurrentUser: boolean
+}
 
-export default function PostCard(props: PostCardProps) {
-  const { post, ...postBodyProps } = props
+export default function PostCard(props: Props) {
+  const { user, id } = props
   return (
     <>
       <NeumoLinkBox
-        href={`/${post.user.publicId}/${post.id}`}
+        href={`/${user.publicId}/${id}`}
         minH="7em"
         mx="md"
         w="90%"
@@ -18,7 +20,7 @@ export default function PostCard(props: PostCardProps) {
         borderRadius="40px"
         overflow="hidden"
       >
-        <PostBody post={post} {...postBodyProps} />
+        <PostBody {...props} />
       </NeumoLinkBox>
     </>
   )

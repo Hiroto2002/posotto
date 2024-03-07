@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import PostCards from '@/features/PostCards/components/PostCards'
 import { auth } from '@clerk/nextjs'
 
-export default async function Home() {
+const Home = async () => {
   const { getToken, userId } = auth()
   const token = await getToken()
   const posts = await PostService().findAll(token)
@@ -22,3 +22,5 @@ export default async function Home() {
     </Stack>
   )
 }
+export default Home
+Home.displayName = 'Home'

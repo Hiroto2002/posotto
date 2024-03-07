@@ -8,11 +8,11 @@ export const follow = async () => {
  
   const follows:Follow[] = [
     {
-      follower_id: 'user_2bZsg5vIrB06IKeLE7eYyecxop0',
+      follower_id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq0',
       following_id:'user_2bZsg5vIrB06IKeLE7eYyecxoq1'
     },
     {
-      follower_id: 'user_2bZsg5vIrB06IKeLE7eYyecxop0',
+      follower_id: 'user_2bZsg5vIrB06IKeLE7eYyecxoq0',
       following_id:'user_2bZsg5vIrB06IKeLE7eYyecxoq2'
     }
   ]

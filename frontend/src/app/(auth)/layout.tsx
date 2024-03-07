@@ -1,26 +1,31 @@
-import {
-    Box,
-    Grid,
-    GridItem,
-  } from '@yamada-ui/react'
-  import LeftSidebar from '@/components/LeftSidebar'
+import { Box, Grid, GridItem } from '@yamada-ui/react'
+import LeftSidebar from '@/components/LeftSidebar'
 import RightSidebar from '@/components/RightSidebar'
 import Menubar from '@/features/Menubar/components/Menubar'
 import Topbar from '@/components/Topbar'
 import { BG_COLOR } from '@/variants'
 import QueryProvider from '@/providers/QueryProvider'
-import { currentUser } from '@clerk/nextjs'
-export const AuthLayout = async({
+import { auth, currentUser } from '@clerk/nextjs'
+import { DbAccountService } from './services/DbAccount.service'
+import { User } from '@clerk/nextjs/server'
+
+const AuthLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) => {
-  const user = await currentUser()
-  const userData = {
-    id: user?.id || '',
-    name: user?.firstName || '',
-    imageUrl: user?.imageUrl || '',
+  const clerkUser = (await currentUser()) as User
+  const { getToken } = await auth()
+  const token = await getToken()
+  const User = DbAccountService(token)
+  const isChecked = await User?.isChecked(clerkUser)
+  if (!isChecked?.isCreated) {
+    User?.createUser(clerkUser)
   }
+  if (isChecked?.isChanged) {
+    User?.updateUser(clerkUser)
+  }
+
   return (
     <QueryProvider>
       <Topbar />
@@ -44,3 +49,5 @@ export const AuthLayout = async({
     </QueryProvider>
   )
 }
+
+export default AuthLayout

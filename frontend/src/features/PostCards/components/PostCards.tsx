@@ -7,29 +7,26 @@ import { usePosts } from '@/features/PostCards/hooks/usePosts'
 // import { User } from '@clerk/nextjs/server'
 
 type PostCardProps = {
-  // user: User
+  userId: string|null
   posts: Post[]
 }
 
 export default function PostCards(props: PostCardProps) {
-  const { posts } = props
+  const { posts,userId } = props
   const { findAll } = usePosts()
   const { data } = useQuery({
     queryKey: ['posts'],
     queryFn: findAll,
     initialData: posts,
   })
-  const isCurrentUsersPost = true // TODO: implement
 
   return (
     <VStack alignItems="center">
       {data?.map((post) => (
         <PostCard
           key={post.id}
-          post={post}
-          hasLikeButton
-          hasCommentButton
-          hasDeleteButton={isCurrentUsersPost}
+          isCurrentUser={userId === post.user.id}
+          {...post}
         />
       ))}
     </VStack>

@@ -45,6 +45,7 @@ export default function PostInput(props: PostInputProps) {
       {isRecording == false && hasDraft == true && (
         <DraftLayout
           handlePostButtonClick={handlePostButtonClick}
+          handleStartRecording={handleStartRecording}
           draftText={draftText}
         />
       )}
