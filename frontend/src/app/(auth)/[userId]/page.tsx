@@ -1,7 +1,7 @@
 import { Stack, VStack } from '@yamada-ui/react'
 import { auth, currentUser, UserProfile } from '@clerk/nextjs'
 import { UserRepository } from '@/repositories/user.repository'
-import { UserService } from './_services/user.service'
+import { UserService } from './services/user.service'
 
 import { Suspense } from 'react'
 import PostCard from '@/features/PostCards/components/PostCard/components/PostCard'

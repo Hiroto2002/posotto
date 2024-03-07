@@ -3,10 +3,12 @@
 } */
 
 html {
-  background-color: #ebe5d9;
+  background-color: #ebe5d9 !important;
 }
 
 body {
   font-family: dnp-shuei-gothic-gin-std, sans-serif !important;
   color: #222 !important;
+  background-color: #ebe5d9 !important;
+  min-height: 100vh;
 }
