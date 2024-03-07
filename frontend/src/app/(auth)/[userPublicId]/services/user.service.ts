@@ -1,27 +1,26 @@
-import { UserRepository } from '@/repositories/user.repository'
 import { Post } from '@/types/data/post'
-import { User } from '@/types/data/user'
+import { DBUser, User } from '@/types/data/user'
 import { Token } from '@/types/token'
+import { fetchGet } from '@/utils/fetcher'
 
-export class UserService {
-  constructor(private userRepository: UserRepository) {
-    this.userRepository = UserRepository.getInstance()
-  }
-  async findByPublicId(id: string, token: Token): Promise<User | null> {
+export const UserService = () => {
+  const findByPublicId = async (token: Token, PublicId: string) => {
     try {
+      if (token === null) return null
       // front で無理やり型を合わせているため、パフォーマンスが良くないかも
-      const DBUser = await this.userRepository.findByPublicId(id, token)
+      const result = await fetchGet<DBUser>(`/user/${PublicId}`, token)
+      const DBUser = result.data
       if (!DBUser) return null
-      const user: User = {
+      const user: DBUser = {
         ...DBUser,
-        posts: DBUser?.posts.map((post) => ({
+        posts: DBUser?.posts?.map((post) => ({
           ...post,
           user: {
             id: DBUser.id,
             nickname: DBUser.nickname,
             img_url: DBUser.img_url,
             isPublic: DBUser.isPublic,
-            publicId: id,
+            publicId: PublicId,
           },
         })),
       }
@@ -31,4 +30,5 @@ export class UserService {
       return null
     }
   }
+  return { findByPublicId }
 }
