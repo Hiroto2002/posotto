@@ -15,7 +15,7 @@ export const NeumoLinkBox = (props: NeumoLinkBoxProps) => {
       boxShadow={BOX_SHADOW_UNPRESSED}
       {...linkBoxProps}
     >
-      <LinkOverlay href={href} />
+      {/* <LinkOverlay href={href} /> */}
       {children}
     </LinkBox>
   )

@@ -22,10 +22,9 @@ export class PostService {
       console.log('-----------------');
       const { text } = convertTextDto;
       // console.log(content);
-      const recognizedText = await this.audioRecognitionService.recognizeAudioText(
-        text,
-      );
-      return {text:recognizedText};
+      const recognizedText =
+        await this.audioRecognitionService.recognizeAudioText(text);
+      return { text: recognizedText };
     } catch (e) {
       console.log(e);
     }
@@ -36,7 +35,7 @@ export class PostService {
    * @param createPostDto
    * @returns
    */
-  async createPost(createPostDto: CreatePostDto&{user_id:string}) {
+  async createPost(createPostDto: CreatePostDto & { user_id: string }) {
     try {
       console.log('-----------------');
       console.log(createPostDto);
@@ -91,5 +90,10 @@ export class PostService {
       isLiked: favorites.some((favorite) => favorite.user_id === user_id),
     };
     return newPost;
+  }
+
+  async deletePost(postId: number) {
+    await this.postRepository.deletePost(postId);
+    return postId;
   }
 }

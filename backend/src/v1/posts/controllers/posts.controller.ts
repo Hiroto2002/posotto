@@ -8,6 +8,7 @@ import {
   Param,
   Request,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatePostDto } from '../dto/create-post.dto';
@@ -50,6 +51,11 @@ export class PostsController {
   async convertText(@Body() ConvertTextDto: ConvertTextDto) {
     console.log('-----------voice-----------');
     return  this.appService.convertText(ConvertTextDto);
+  }
+
+  @Delete('/:PostId')
+  async deletePost(@Param('PostId') postId: number) {
+    return  this.appService.deletePost( Number(postId) );
   }
 
   // @Post('/voice')

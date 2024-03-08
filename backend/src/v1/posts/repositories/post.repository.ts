@@ -133,4 +133,17 @@ export class PostRepository {
 
     return posts;
   }
+
+  async deletePost(postId: number) {
+    try {
+      const post = this.prisma.post.delete({
+        where: {
+          id: postId,
+        },
+      });
+      return (await post).id;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }

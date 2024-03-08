@@ -19,7 +19,7 @@ const PostDetail = async (props: Props) => {
 
   const user = auth
   const isCurrentUser = user.name === post.user.nickname
-  console.log(user)
+  
   return (
     <Stack direction="column" minH="100vh" w="full" alignItems="center">
       <PostCard {...post} isCurrentUser={isCurrentUser} />

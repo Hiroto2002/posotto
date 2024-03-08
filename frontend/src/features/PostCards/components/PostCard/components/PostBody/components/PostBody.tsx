@@ -19,9 +19,9 @@ type Props = Post & {
 
 export default function PostBody(props: Props) {
   const { isCurrentUser, ...post } = props
-  const { isLiked, handleClickLike, handleClickDelete } = usePost()
+  const { isLiked, isCheckDelete, handleClickLike, handleClickDelete } =
+    usePost()
   const { handlePushRouter } = useCustomRouter()
-  const handleDeletePost = (postId: number) => {} // TODO: implementz
   // todo:これは取得時にやるべきビジネスロジックかも
   const { contentOpacity, timeSinceText } = postBodyInfo(post)
   return (
@@ -29,7 +29,11 @@ export default function PostBody(props: Props) {
       <HStack gap="0" alignItems="start" w="full">
         <VStack gap="0.8em" ps="md">
           <HStack gap="1em" justify="space-between">
-            <Avatar size="sm" opacity={contentOpacity} src={post.user.img_url}/>
+            <Avatar
+              size="sm"
+              opacity={contentOpacity}
+              src={post.user.img_url}
+            />
             <VStack gap="0">
               <Text fontWeight="bold" opacity={contentOpacity}>
                 {post.user.nickname}
@@ -42,11 +46,18 @@ export default function PostBody(props: Props) {
             {isCurrentUser && (
               <NeumoIconButton
                 iconElem={
-                  <FontAwesomeIcon
-                    icon={faTrashCan}
-                    fontSize="md"
-                    opacity={contentOpacity}
-                  />
+                  <>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      fontSize="md"
+                      opacity={contentOpacity}
+                    />
+                    {isCheckDelete && (
+                      <Text fontSize="sm" opacity={contentOpacity}>
+                        ?
+                      </Text>
+                    )}
+                  </>
                 }
                 handleClick={() => handleClickDelete(post.id)}
               />
